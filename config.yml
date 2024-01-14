@@ -1,0 +1,15 @@
+# Example YAML configuration file for hurricane analysis
+---
+input:
+  year: 2017
+  storm_number: 15
+  basin: al
+roi:
+  min_latitude: 17.5
+  max_latitude: 18.5
+  min_longitude: -67.5
+  max_longitude: -65.5
+output:
+  resolution: [0.1, 0.1]
+  netcdf_dir: ~/workspace/raincoat-takehome-science/output/data
+  plot_dir: ~/workspace/raincoat-takehome-science/output/png
