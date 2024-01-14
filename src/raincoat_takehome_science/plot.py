@@ -1,4 +1,5 @@
 """Routines for displaying data."""
+from typing import Any
 
 import cartopy.crs as ccrs
 from matplotlib import pyplot as plt
@@ -36,7 +37,7 @@ class InteractiveMapPlotWidget:
         Displays the widget with the time slider and output plot.
     """
 
-    def __init__(self, dataarray):
+    def __init__(self, dataarray: xr.DataArray) -> None:
         self.dataarray = dataarray
         self._time_slider = widgets.SelectionSlider(
             options=[
@@ -81,7 +82,7 @@ class InteractiveMapPlotWidget:
         # Display the widget
         self.display_widget()
 
-    def _update_plot(self, change):
+    def _update_plot(self, **kwargs: Any) -> None:
         """
         Callback function to update the plot based on the time slider value.
         """
@@ -93,6 +94,6 @@ class InteractiveMapPlotWidget:
             )
             self.fig.canvas.draw_idle()
 
-    def display_widget(self):
+    def display_widget(self) -> None:
         """Displays the widget with the time slider and output plot."""
         display(widgets.VBox([self._time_slider, self.plot_output]))

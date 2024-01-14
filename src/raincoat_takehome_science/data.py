@@ -1,12 +1,12 @@
 """Reading and manipulating datasets."""
 from io import StringIO
-from typing import Mapping, Optional, Any, Tuple, Union
+from typing import Mapping, Optional, Any, List, Tuple, Union
 
 import dask
 import dask.array
 import numpy as np
+from numpy.typing import NDArray
 import pandas as pd
-import cftime
 import xarray as xr
 from .utils import logger
 from .path import calculate_wind_at_given_distance
@@ -135,9 +135,9 @@ class Dataset(xr.Dataset):
     @classmethod
     def from_roi(
         cls,
-        roi: Tuple[float, float, float, float],
-        resolution: Tuple[float, float],
-    ):
+        roi: Tuple[float, ...],
+        resolution: Tuple[float, ...],
+    ) -> "Dataset":
         lon = xr.DataArray(
             np.arange(
                 roi[-2],
@@ -177,8 +177,11 @@ class Dataset(xr.Dataset):
         wind_speed = []
 
         # Function to calculate wind speed for a given time
-        @dask.delayed
-        def calculate_wind_speed(time, lat_lon):
+        @dask.delayed  # type: ignore
+        def calculate_wind_speed(
+            time: np.datetime64,
+            lat_lon: List[NDArray[np.float_]],
+        ) -> float:
             max_wind = b_deck.loc[b_deck["YYYYMMDDHH"] == time]["VMAX"].values[
                 -1
             ]

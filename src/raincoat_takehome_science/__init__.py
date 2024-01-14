@@ -33,10 +33,10 @@ def calculate_swath(config_path: Union[str, Path]) -> xr.Dataset:
         Path("~/Downloads/bal152017.dat").expanduser().read_text()
     )
     try:
-        dset = Dataset.from_roi(cfg.roi, cfg.resolution)
+        dset = Dataset.from_roi(cfg.roi or (), cfg.resolution or ())
         dset.calculate_wind_profile(deck_data)
     except Exception as error:
-        logger.error_handle("Could not calculate wind speeds %s", error)
+        logger.error_handle(error, "Could not calculate wind speeds")
     out_file = (
         cfg.netcdf_dir
         / f"swath_output_{dset.attrs['time_min']}-{dset.attrs['time_max']}.nc"

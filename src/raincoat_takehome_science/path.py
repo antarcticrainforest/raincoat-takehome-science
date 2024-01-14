@@ -1,16 +1,19 @@
 """Collection of methods to calcuated paths."""
 
 
-from typing import Tuple
+from typing import cast, Tuple, List
 
 import numpy as np
+from numpy.typing import NDArray
 
 
-def haversine_distance(point1: np.ndarray, point2: np.ndarray) -> np.ndarray:
+def haversine_distance(
+    point1: List[NDArray[np.float_]], point2: List[NDArray[np.float_]]
+) -> NDArray[np.float_]:
     lat1, lon1 = np.radians(point1)
     lat2, lon2 = np.radians(point2)
     # Earth radius in meters
-    earth_radius = 6371000  # Approximately 6371 km
+    earth_radius = 6371000.0  # Approximately 6371 km
 
     # Haversine formula to calculate distance
     d_lat = lat2 - lat1
@@ -20,15 +23,14 @@ def haversine_distance(point1: np.ndarray, point2: np.ndarray) -> np.ndarray:
         + np.cos(lat1) * np.cos(lat2) * np.sin(d_lon / 2) ** 2
     )
     c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
-    distance = earth_radius * c
-    return distance
+    return cast(NDArray[np.float_], earth_radius * c)
 
 
 def calculate_wind_at_given_distance(
     max_wind: float,
     max_wind_radius: float,
-    loc: np.ndarray,
-    centre: np.ndarray,
+    loc: List[NDArray[np.float_]],
+    centre: List[NDArray[np.float_]],
 ) -> float:
     """Calculate the windspeed at a given location."""
     radius = haversine_distance(loc, centre)
@@ -41,4 +43,4 @@ def calculate_wind_at_given_distance(
     result[mask_radius_gt] = max_wind * (
         max_wind_radius / radius[mask_radius_gt]
     ) ** (1 / 2)
-    return result
+    return float(result)

@@ -5,7 +5,7 @@ import gzip
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union, cast
 
 import appdirs
 import requests
@@ -48,7 +48,7 @@ class _Logger(logging.Logger):
         self._add_stream_handler()
         self.addHandler(self._file_handle)
 
-    def _add_stream_handler(self) -> logging.StreamHandler:
+    def _add_stream_handler(self) -> logging.StreamHandler[Any]:
         """
         Add a stream handler to the logger for logging to console.
 
@@ -171,10 +171,10 @@ class Config:
         """
         self.config_path = Path(config_path).expanduser()
         self.url: str = ""
-        self.netcdf_dir: Optional[Path] = None
-        self.plot_dir: Optional[Path] = None
-        self.roi: Tuple[float, float, float, float] = ()
-        self._resolution: Tuple[float, float] = ()
+        self.netcdf_dir: Path = Path("/tmp")
+        self.plot_dir: Path = Path("/tmp")
+        self.roi: Optional[Tuple[float, ...]] = None
+        self._resolution: Optional[Tuple[float, ...]] = None
         try:
             self._load_config(self.config_path)
         except Exception as error:
@@ -191,21 +191,24 @@ class Config:
         self.netcdf_dir = Path(config["output"]["netcdf_dir"]).expanduser()
         if config["output"].get("plot_dir"):
             self.plot_dir = Path(config["output"]["plot_dir"]).expanduser()
-        self.roi = tuple(
-            float(config["roi"][k])
-            for k in (
-                "min_latitude",
-                "max_latitude",
-                "min_longitude",
-                "max_longitude",
-            )
+        self.roi = cast(
+            Tuple[float, ...],
+            tuple(
+                float(config["roi"][k])
+                for k in (
+                    "min_latitude",
+                    "max_latitude",
+                    "min_longitude",
+                    "max_longitude",
+                )
+            ),
         )
-        self._resolution = list(map(float, config["output"]["resolution"]))
+        self._resolution = tuple(map(float, config["output"]["resolution"]))
 
     @property
-    def resolution(self) -> Tuple[float, float]:
+    def resolution(self) -> Tuple[float, ...]:
         """Define the lon/lat resolution of the output data."""
-        return tuple(map(float, self._resolution))
+        return tuple(map(float, self._resolution or []))
 
 
 def download_file(url: str) -> bytes:
@@ -247,3 +250,4 @@ def download_file(url: str) -> bytes:
         return _download(url)
     except Exception as error:
         logger.error_handle(error)
+    raise DownloadError("An Error occured while downloading")

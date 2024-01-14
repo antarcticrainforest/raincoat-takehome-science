@@ -7,7 +7,7 @@ from nbparameterise import (
     replace_definitions,
     parameter_values,
 )
-from nbclient import NotebookClient
+import nbclient
 from nbclient.exceptions import CellExecutionError
 import nbformat
 from pathlib import Path
@@ -108,7 +108,7 @@ def execute_notebook(
         extract_parameters(nb, tag="parameters"), **params
     )
     new_notebook = replace_definitions(nb, parameters)
-    client = NotebookClient(new_notebook, store_widget_state=False)
+    client = nbclient.NotebookClient(new_notebook, store_widget_state=False)  # type: ignore
     with client.setup_kernel():
         try:
             for num, cell in tqdm(
@@ -127,7 +127,7 @@ def execute_notebook(
     logger.setLevel(logging.INFO)
     logger.info(
         "Notebook execution successful, find your notebook in %s",
-        notebook_output.expanduser().absolute(),
+        Path(notebook_output).expanduser().absolute(),
     )
     logger.setLevel(log_level)
 
