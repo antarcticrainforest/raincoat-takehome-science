@@ -95,3 +95,5 @@ After running the tool, a Jupyter notebook is created. Open this notebook to
 visualize and interact with the calculated wind profiles. The notebook
 contains interactive widgets for inspecting the data and performing additional
 analysis.
+
+An example notebook can be found in [notebooks/windfield.ipynb]
