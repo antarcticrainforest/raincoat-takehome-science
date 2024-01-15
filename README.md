@@ -1,24 +1,74 @@
-# Raincoat Take-home Exercise
+# Raincoat Swath Profiler
 
-## Overview
+This repository contains a command-line tool, swath-profiler, designed to
+calculate hurricane wind profiles over a specified region using
+the Jelesnianski (1965) formula for wind speed. The tool utilizes b-deck track
+data provided by NOAA's National Hurricane Center (NHC) to generate a gridded
+data fields of wind, which are then stored in NetCDF files.
+Additionally, the tool creates a Jupyter notebook for visualising and
+analysing the calculated wind profiles.
 
-This is a take-home exercise for Raincoat. In Raincoat, we often work with remote sensing data in order to 
-understand the world around us.
 
-## Instructions
+## Installation
 
-* Fork this repository
-* Use directory structure prepared for you to implement your solution
-* Use Google to find answers to questions you don't know! At the end of the day, this how we solve the problems.
-* Describe your approach in a markdown file in the `SOLUTION.md` file
+To install the swath-profiler tool and its dependencies, follow these steps:
 
-## Review Criteria
+ - Clone the repository to your local machine:
+    ```console
+        git clone https://github.com/antarcticrainforest/raincoat-takehome-science.git
+    ```
+ - Navigate to the project directory:
+    ```console
+        cd raincoat-takehome-science
+    ```
+ - Install the required Python packages:
+    ```console
+        python3 -m pip install .
+    ```
 
-We understand that this is a take-home exercise with open-ended questions. We will be evaluating your submission based
-on the following criteria:
 
-* For more candidates with scientific backgrounds, we will be looking for a strong understanding of the scientific
-  concepts behind the questions. For candidates with more engineering backgrounds, we will focus on a strong
-  understanding of the engineering concepts behind the questions.
-* We will be looking for an understanding of the scientific Python ecosystem, including libraries such as `xarray`,
-  `numpy`, `pandas`, `scipy`, `matplotlib`, `scikit-learn`, `rasterio`, `geopandas`, `shapely`, `fiona`, etc.
+## Usage
+### Configuration
+
+Create a YAML configuration file (e.g., config.yml) with the required input
+parameters. An example configuration file is provided in the repository.
+
+```yaml
+
+# Example YAML configuration file for hurricane analysis
+---
+input:
+  year: 2017
+  storm_number: 15
+  basin: al
+roi:
+  min_latitude: 17.5
+  max_latitude: 18.5
+  min_longitude: -67.5
+  max_longitude: -65.5
+output:
+  resolution: [0.1, 0.1]
+  netcdf_dir: ~/workspace/raincoat-takehome-science/output/data
+  plot_dir: ~/workspace/raincoat-takehome-science/output/png
+```
+
+### Running the Tool
+
+Execute the swath-profiler command with the path to the configuration file:
+
+```console
+
+swath-profiler config.yml
+
+Options:
+
+    -v or --verbose: Increase verbosity (debug mode) (default: 0)
+    -V or --version: Show program's version number and exit
+```
+
+### Jupyter Notebook
+
+After running the tool, a Jupyter notebook is created. Open this notebook to
+visualize and interact with the calculated wind profiles. The notebook
+contains interactive widgets for inspecting the data and performing additional
+analysis.
