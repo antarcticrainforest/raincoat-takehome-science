@@ -1,7 +1,7 @@
 # Raincoat Swath Profiler
 
 
-[![codecov]()https://codecov.io/gh/antarcticrainforest/raincoat-takehome-science/branch/cli-setup/graph/badge.svg](https://app.codecov.io/gh/antarcticrainforest/raincoat-takehome-science)
+[![codecov](https://codecov.io/gh/antarcticrainforest/raincoat-takehome-science/branch/cli-setup/graph/badge.svg)](https://app.codecov.io/gh/antarcticrainforest/raincoat-takehome-science)
 [![Pipeline](https://github.com/antarcticrainforest/raincoat-takehome-science/actions/workflows/ci_job.yml/badge.svg)](https://github.com/antarcticrainforest/raincoat-takehome-science/actions)
 
 This repository contains a command-line tool, swath-profiler, designed to
