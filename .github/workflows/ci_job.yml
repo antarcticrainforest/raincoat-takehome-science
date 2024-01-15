@@ -29,5 +29,6 @@ jobs:
       - name: Run simple functional tests
         run: |
           pytest -vv --cov=$PWD/src --cov-report=html:coverage_report  --junitxml report.xml --cov-report xml
+          python3 -m coverage report
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
