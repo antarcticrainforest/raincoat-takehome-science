@@ -8,7 +8,6 @@ from typing import List, Optional, Union
 import nbclient
 import nbformat
 from ipykernel.kernelspec import install as install_kernel
-from nbclient.exceptions import CellExecutionError
 from nbparameterise import (
     extract_parameters,
     parameter_values,
@@ -72,7 +71,7 @@ def swath_cli(argv: Optional[List[str]] = None) -> None:
     logger.setLevel(log_level)
     logger.cli = True
     nc_dataset = calculate_swath(args.config_path.expanduser())
-    Path(nc_dataset.attrs["file_name"]).unlink()
+    Path(nc_dataset.attrs["file_name"]).unlink(missing_ok=True)
     nc_dataset.to_netcdf(
         nc_dataset.attrs["file_name"], engine="h5netcdf", mode="w"
     )
@@ -107,6 +106,8 @@ def execute_notebook(
         extract_parameters(nb, tag="parameters"), **params
     )
     new_notebook = replace_definitions(nb, parameters)
+    notebook_output = Path(notebook_output).expanduser().absolute()
+    notebook_output.parent.mkdir(exist_ok=True, parents=True)
     client = nbclient.NotebookClient(new_notebook, store_widget_state=False)
     with client.setup_kernel():
         try:
@@ -126,7 +127,7 @@ def execute_notebook(
     logger.setLevel(logging.INFO)
     logger.info(
         "Notebook execution successful, find your notebook in %s",
-        Path(notebook_output).expanduser().absolute(),
+        notebook_output,
     )
     logger.setLevel(log_level)
 

@@ -135,7 +135,10 @@ class InteractiveMapPlotWidget:
                 orientation="horizontal",
                 shrink=0.7,
                 extend="both",
-                label=f"{self.dataarray.attrs['long_name']} [{self.dataarray.attrs['units']}]",
+                label=(
+                    f"{self.dataarray.attrs['long_name']}"
+                    "[{self.dataarray.attrs['units']}]"
+                ),
             )
 
         self.ax.coastlines()
