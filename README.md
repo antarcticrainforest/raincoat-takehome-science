@@ -96,4 +96,4 @@ visualize and interact with the calculated wind profiles. The notebook
 contains interactive widgets for inspecting the data and performing additional
 analysis.
 
-An example notebook can be found in [notebooks/windfield.ipynb]
+An example notebook can be found in [notebooks/windfield.ipynb](notebooks/windfield.ipynb).
