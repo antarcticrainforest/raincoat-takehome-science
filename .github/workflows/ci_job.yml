@@ -1,0 +1,28 @@
+name:  Simple Tests
+
+permissions:
+  pull-requests: write
+
+on: [push, pull_request]
+
+jobs:
+  code_style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python3 -m pip install -e .[dev]
+      - name: Check code style isort and balck
+        run: isort --check --profile black -t py311 -l 79 src
+      - name: Check type annotations
+        run: mypy --non-interactive
+      - name: Test code style
+        run: |
+          flake8 src/raincoat_takehome_science --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 src/raincoat_takehome_science --count --max-complexity=15 --max-line-length=88 --statistics
