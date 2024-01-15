@@ -14,10 +14,11 @@ For more information, refer to the README file or additional documentation.
 """
 from pathlib import Path
 from typing import Union
+
 import xarray as xr
 
-from .utils import Config, logger, download_file
-from .data import read_b_deck, Dataset
+from .data import Dataset, read_b_deck
+from .utils import Config, download_file, logger
 
 __version__ = "2023.0.0"
 

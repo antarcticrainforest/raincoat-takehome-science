@@ -2,22 +2,22 @@
 
 import argparse
 import logging
-from nbparameterise import (
-    extract_parameters,
-    replace_definitions,
-    parameter_values,
-)
-import nbclient
-from nbclient.exceptions import CellExecutionError
-import nbformat
 from pathlib import Path
-from tqdm import tqdm
 from typing import List, Optional, Union
 
+import nbclient
+import nbformat
+from nbclient.exceptions import CellExecutionError
+from nbparameterise import (
+    extract_parameters,
+    parameter_values,
+    replace_definitions,
+)
+from tqdm import tqdm
 
 from raincoat_takehome_science import (
-    __version__,
     Config,
+    __version__,
     calculate_swath,
     logger,
 )

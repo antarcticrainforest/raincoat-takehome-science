@@ -2,14 +2,12 @@
 from typing import Any
 
 import cartopy.crs as ccrs
-from matplotlib import pyplot as plt
-import xarray as xr
-import pandas as pd
-
 import ipywidgets as widgets
 import matplotlib.pyplot as plt
-from IPython.display import display
+import pandas as pd
 import xarray as xr
+from IPython.display import display
+from matplotlib import pyplot as plt
 
 
 class InteractiveMapPlotWidget:

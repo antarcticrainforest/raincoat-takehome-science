@@ -1,8 +1,8 @@
 """Utility methods and classes for data processing."""
 
-from io import BytesIO
 import gzip
 import logging
+from io import BytesIO
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple, Union, cast

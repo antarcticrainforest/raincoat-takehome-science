@@ -1,7 +1,7 @@
 """Collection of methods to calcuated paths."""
 
 
-from typing import cast, Tuple, List
+from typing import List, Tuple, cast
 
 import numpy as np
 from numpy.typing import NDArray
