@@ -1,8 +1,8 @@
 # Raincoat Swath Profiler
 
 
-[![codecov](https://codecov.io/gh/antarcticrainforest/raincoat-takehome-science/branch/cli-setup/graph/badge.svg)](https://app.codecov.io/gh/antarcticrainforest/raincoat-takehome-science)
 [![Pipeline](https://github.com/antarcticrainforest/raincoat-takehome-science/actions/workflows/ci_job.yml/badge.svg)](https://github.com/antarcticrainforest/raincoat-takehome-science/actions)
+[![codecov](https://codecov.io/gh/antarcticrainforest/raincoat-takehome-science/branch/cli-setup/graph/badge.svg)](https://app.codecov.io/gh/antarcticrainforest/raincoat-takehome-science)
 
 This repository contains a command-line tool, swath-profiler, designed to
 calculate hurricane wind profiles over a specified region using
@@ -19,15 +19,15 @@ To install the swath-profiler tool and its dependencies, follow these steps:
 
  - Clone the repository to your local machine:
     ```console
-        git clone https://github.com/antarcticrainforest/raincoat-takehome-science.git
+    git clone https://github.com/antarcticrainforest/raincoat-takehome-science.git
     ```
  - Navigate to the project directory:
     ```console
-        cd raincoat-takehome-science
+    cd raincoat-takehome-science
     ```
  - Install the required Python packages:
     ```console
-        python3 -m pip install .
+    python3 -m pip install .
     ```
 
 
