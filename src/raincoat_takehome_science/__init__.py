@@ -29,10 +29,7 @@ def calculate_swath(config_path: Union[str, Path]) -> xr.Dataset:
     """Calculate the swath."""
 
     cfg = Config(config_path)
-    # deck_data = read_b_deck(download_file(cfg.url))
-    deck_data = read_b_deck(
-        Path("~/Downloads/bal152017.dat").expanduser().read_text()
-    )
+    deck_data = read_b_deck(download_file(cfg.url))
     try:
         dset = Dataset.from_roi(cfg.roi or (), cfg.resolution or ())
         dset.calculate_wind_profile(deck_data)

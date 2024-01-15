@@ -1,7 +1,7 @@
 """Collection of methods to calcuated paths."""
 
 
-from typing import List, Tuple, cast
+from typing import List, cast
 
 import numpy as np
 from numpy.typing import NDArray
@@ -10,6 +10,9 @@ from numpy.typing import NDArray
 def haversine_distance(
     point1: List[NDArray[np.float_]], point2: List[NDArray[np.float_]]
 ) -> NDArray[np.float_]:
+    """
+    Calculate the haversine distance between to points on th earth surface.
+    """
     lat1, lon1 = np.radians(point1)
     lat2, lon2 = np.radians(point2)
     # Earth radius in meters

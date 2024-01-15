@@ -15,12 +15,7 @@ from nbparameterise import (
 )
 from tqdm import tqdm
 
-from raincoat_takehome_science import (
-    Config,
-    __version__,
-    calculate_swath,
-    logger,
-)
+from raincoat_takehome_science import __version__, calculate_swath, logger
 
 CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"]}
 
@@ -108,7 +103,7 @@ def execute_notebook(
         extract_parameters(nb, tag="parameters"), **params
     )
     new_notebook = replace_definitions(nb, parameters)
-    client = nbclient.NotebookClient(new_notebook, store_widget_state=False)  # type: ignore
+    client = nbclient.NotebookClient(new_notebook, store_widget_state=False)
     with client.setup_kernel():
         try:
             for num, cell in tqdm(

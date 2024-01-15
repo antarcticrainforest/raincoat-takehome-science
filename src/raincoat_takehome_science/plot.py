@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import xarray as xr
 from IPython.display import display
-from matplotlib import pyplot as plt
 
 
 class InteractiveMapPlotWidget:

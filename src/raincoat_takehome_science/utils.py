@@ -5,7 +5,7 @@ import logging
 from io import BytesIO
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple, Union, cast
+from typing import Any, Optional, Tuple, Union, cast
 
 import appdirs
 import requests
