@@ -5,6 +5,7 @@ import logging
 from pathlib import Path
 from typing import List, Optional, Union
 
+from ipykernel.kernelspec import install as install_kernel
 import nbclient
 import nbformat
 from nbclient.exceptions import CellExecutionError
@@ -71,7 +72,10 @@ def swath_cli(argv: Optional[List[str]] = None) -> None:
     logger.setLevel(log_level)
     logger.cli = True
     nc_dataset = calculate_swath(args.config_path.expanduser())
-    nc_dataset.to_netcdf(nc_dataset.attrs["file_name"], engine="h5netcdf")
+    Path(nc_dataset.attrs["file_name"]).unlink()
+    nc_dataset.to_netcdf(
+        nc_dataset.attrs["file_name"], engine="h5netcdf", mode="w"
+    )
     execute_notebook(
         Path(__file__).parent / "notebooks" / "windfield-tmpl.ipynb",
         args.config_path.parent / "notebooks" / "windfield.ipynb",
@@ -96,7 +100,7 @@ def execute_notebook(
     **params:
         Parameters that are added to the parametrised notebook.
     """
-
+    install_kernel(user=True, kernel_name="swath", display_name="Swath")
     with open(notebook_tmpl) as stream:
         nb = nbformat.read(stream, as_version=4)
     parameters = parameter_values(
@@ -113,7 +117,7 @@ def execute_notebook(
                 total=len(new_notebook.cells),
             ):
                 client.execute_cell(cell, num)
-        except CellExecutionError:
+        except Exception:
             logger.error('Error executing the notebook "%s".', notebook_output)
             raise
         finally:
