@@ -69,6 +69,25 @@ Options:
     -v or --verbose: Increase verbosity (debug mode) (default: 0)
     -V or --version: Show program's version number and exit
 ```
+The help menu is a follows:
+
+```console
+usage: swath-profiler [-h] [-v] [-V] config_path
+
+This command takes a given yaml configuration file and calculates the swath profiles from hurricane b-deck track data provided by NOAHH. Swath profile calculation is
+based on the Jelesnianski formula for w2nd speed.
+
+positional arguments:
+  config_path    Path to the yaml configuration file, holdingthe necessary information
+
+options:
+  -h, --help     show this help message and exit
+  -v, --verbose  Increase verbosity (debug mode). (default: 0)
+  -V, --version  show program's version number and exit
+
+See https://github.com/antarcticrainforest/raincoat-takehome-science for more details.
+```
+
 
 ### Jupyter Notebook
 

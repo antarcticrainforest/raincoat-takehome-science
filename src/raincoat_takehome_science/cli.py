@@ -17,8 +17,6 @@ from tqdm import tqdm
 
 from raincoat_takehome_science import __version__, calculate_swath, logger
 
-CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"]}
-
 
 def swath_cli(argv: Optional[List[str]] = None) -> None:
     """Command line interface for calculating swath profiles."""
@@ -44,12 +42,6 @@ def swath_cli(argv: Optional[List[str]] = None) -> None:
             "Path to the yaml configuration file, holding"
             "the necessary information"
         ),
-    )
-    parser.add_argument(
-        "--plot",
-        action="store_true",
-        default=False,
-        help="Create plots of the calculated data",
     )
     parser.add_argument(
         "-v",
