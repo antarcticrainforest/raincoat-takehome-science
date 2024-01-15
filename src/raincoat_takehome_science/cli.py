@@ -5,9 +5,9 @@ import logging
 from pathlib import Path
 from typing import List, Optional, Union
 
-from ipykernel.kernelspec import install as install_kernel
 import nbclient
 import nbformat
+from ipykernel.kernelspec import install as install_kernel
 from nbclient.exceptions import CellExecutionError
 from nbparameterise import (
     extract_parameters,

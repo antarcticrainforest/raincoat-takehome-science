@@ -34,7 +34,7 @@ def calculate_wind_at_given_distance(
     max_wind_radius: float,
     loc: List[NDArray[np.float_]],
     centre: List[NDArray[np.float_]],
-) -> float:
+) -> NDArray[np.float_]:
     """Calculate the windspeed at a given location."""
     radius = haversine_distance(loc, centre)
     mask_radius_leq = radius <= max_wind_radius
@@ -46,4 +46,4 @@ def calculate_wind_at_given_distance(
     result[mask_radius_gt] = max_wind * (
         max_wind_radius / radius[mask_radius_gt]
     ) ** (1 / 2)
-    return float(result)
+    return result

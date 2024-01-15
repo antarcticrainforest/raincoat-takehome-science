@@ -182,7 +182,7 @@ class Dataset(xr.Dataset):
         def calculate_wind_speed(
             time: np.datetime64,
             lat_lon: List[NDArray[np.float_]],
-        ) -> float:
+        ) -> NDArray[np.float_]:
             max_wind = b_deck.loc[b_deck["YYYYMMDDHH"] == time]["VMAX"].values[
                 -1
             ]
